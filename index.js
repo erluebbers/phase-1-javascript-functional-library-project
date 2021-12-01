@@ -30,9 +30,9 @@ function myMap (collection, cb) {
 */
 
 function myReduce (collection, callback, acc) {
-  let arrCollection
+  let arrCollection = []
   let total = 0
-  Array.isArray(collection) ? arrCollection = collection : arrCollection = Object.values(collection)
+  Array.isArray(collection) ? arrCollection = [...collection] : arrCollection = Object.values(collection)
   if (acc != null) {
     arrCollection.forEach(element => {
       console.log(total)
@@ -40,7 +40,7 @@ function myReduce (collection, callback, acc) {
     })
   }
   else {
-    arrCollection.forEach(element => callback(0, element, collection))
+    arrCollection.forEach(element => total += callback(0, element, collection))
   }
-  return 
+  return total
 }
