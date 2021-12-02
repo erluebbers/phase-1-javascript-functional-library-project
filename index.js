@@ -31,16 +31,81 @@ function myMap (collection, cb) {
 
 function myReduce (collection, callback, acc) {
   let arrCollection = []
-  let total = 0
   Array.isArray(collection) ? arrCollection = [...collection] : arrCollection = Object.values(collection)
-  if (acc != null) {
-    arrCollection.forEach(element => {
-      console.log(total)
-      return total += callback(acc, element)
-    })
+  if (!acc) {
+    acc = arrCollection[0]
+    arrCollection = arrCollection.slice(1)
   }
-  else {
-    arrCollection.forEach(element => total += callback(0, element, collection))
+  for (const value of arrCollection) {
+    acc = callback(acc, value, arrCollection)
   }
-  return total
+  return acc
+}
+
+/* Steps for myFind
+
+1. takes in a collection, makes sure it is an array
+2. takes in a callback function that returns true or false
+3. cb iterates through the collection, finding the first value that returns true
+4. stops iterating
+5. returns that value
+
+*/
+
+function myFind (collection, cb) {
+  let arrCollection = []
+  Array.isArray(collection) ? arrCollection = [...collection] : arrCollection = Object.values(collection)
+  for (const element of arrCollection) {
+    if (cb(element) === true) {
+        return element
+    }
+  }
+}
+
+function myFilter (collection, cb) {
+  let arrCollection = []
+  let modArray = []
+  Array.isArray(collection) ? arrCollection = [...collection] : arrCollection = Object.values(collection)
+  arrCollection.forEach(element => {
+    if (cb(element) === true) {
+      modArray.push(element)
+    }
+  })
+  return modArray
+}
+
+function mySize (collection) {
+  let totalOfElements = 0
+  let arrCollection = []
+  Array.isArray(collection) ? arrCollection = [...collection] : arrCollection = Object.values(collection)
+  arrCollection.forEach(() => totalOfElements += 1)
+  return totalOfElements
+}
+
+function myFirst (array, n) {
+  let newArray = []
+  if (n >= 0) {
+  for (let i = 0; i < n; i++) {
+    newArray.push(array[i])
+    }
+    return newArray
+  }
+  else if (!n) {
+    return array[0]
+  }
+}
+
+function myLast (array, n) {
+  let newArray = []
+  let reversedArray = [...array.reverse()]
+  if (n >= 0) {
+  for (let i = 0; i < n; i++) {
+    newArray.push(reversedArray[i])
+    console.log(newArray)
+    }
+    return newArray
+  }
+  else if (!n) {
+    return reversedArray[0]
+  }
 }
