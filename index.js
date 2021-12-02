@@ -96,16 +96,30 @@ function myFirst (array, n) {
 }
 
 function myLast (array, n) {
-  let newArray = []
-  let reversedArray = [...array.reverse()]
-  if (n >= 0) {
-  for (let i = 0; i < n; i++) {
-    newArray.push(reversedArray[i])
-    console.log(newArray)
-    }
-    return newArray
+  if (n) {
+    return array.slice(array.length - n, array.length)
   }
-  else if (!n) {
-    return reversedArray[0]
+  else {
+    return array[array.length-1]
   }
+  // let newArray = []
+  // let reversedArray = [...array.reverse()]
+  // if (n >= 0) {
+  // for (let i = 0; i < n; i++) {
+  //   newArray.push(reversedArray[i])
+  //   console.log(newArray)
+  //   }
+  //   return newArray
+  // }
+  // else if (!n) {
+  //   return reversedArray[0]
+  // }
+}
+
+function myKeys (obj) {
+  return Object.keys(obj)
+}
+
+function myValues (obj) {
+  return Object.values(obj)
 }
